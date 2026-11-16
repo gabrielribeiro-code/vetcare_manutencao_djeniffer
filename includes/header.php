@@ -26,6 +26,7 @@ $titulo = $titulo ?? 'VetCare';
         <a href="http://localhost:8080/vetcare_manutencao_djeniffer/consultas/index.php">Consultas</a>
         <a href="http://localhost:8080/vetcare_manutencao_djeniffer/chamados/index.php">Suporte</a>
         <a href="http://localhost:8080/vetcare_manutencao_djeniffer/logout.php">Sair</a>
+
       <?php endif; ?>
     </nav>
   </header>

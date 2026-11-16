@@ -38,7 +38,8 @@ include __DIR__ . '/../includes/header.php';
         <div class="field"><label>Status</label><select name="status">
                 <option value="">Todos</option>
                 <?php foreach (['Aberto', 'Em análise', 'Aguardando informações', 'Resolvido', 'Fechado'] as $v): ?>
-                    <option value="<?= htmlspecialchars($v) ?>" <?= $status === $v ? 'selected' : '' ?>><?= htmlspecialchars($v) ?>
+                    <option value="<?= htmlspecialchars($v) ?>" <?= $status === $v ? 'selected' : '' ?>>
+                        <?= htmlspecialchars($v) ?>
                     </option><?php endforeach; ?>
             </select></div>
         <div class="field"><label>Módulo</label><select name="modulo">
