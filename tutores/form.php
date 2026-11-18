@@ -37,7 +37,7 @@ include __DIR__ . '/../includes/header.php';
     <form method="post">
         <div class="field"><label>Nome *</label><input name="nome" value="<?= htmlspecialchars($r['nome']) ?>" required>
         </div>
-        <div class="field"><label>Telefone</label><input name="telefone" value="<?= htmlspecialchars($r['telefone']) ?>">
+        <div class="field"><label>Telefone</label><input name="telefone" type="tel" value="<?= htmlspecialchars($r['telefone']) ?>">
         </div>
         <div class="field"><label>E-mail</label><input type="email" name="email"
                 value="<?= htmlspecialchars($r['email']) ?>"></div>
