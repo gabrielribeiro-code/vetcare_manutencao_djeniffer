@@ -2,18 +2,23 @@
 require_once 'config/database.php';
 if (session_status() === PHP_SESSION_NONE)
     session_start();
+
 $erro = '';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuario = trim($_POST['usuario'] ?? '');
     $senha = $_POST['senha'] ?? '';
     $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE usuario=?");
     $stmt->execute([$usuario]);
     $conta = $stmt->fetch();
+
     if (!$conta) {
         $erro = 'Usuário não encontrado.';
     } elseif ($senha !== $conta['senha']) {
         $erro = 'Senha incorreta.';
     } else {
+
+        session_regenerate_id(true);
 
         $_SESSION['usuario_id'] = $conta['id'];
         $_SESSION['usuario_nome'] = $conta['nome'];
