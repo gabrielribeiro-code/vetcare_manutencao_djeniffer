@@ -13,10 +13,17 @@ $animais = $pdo->query("SELECT id,nome FROM animais ORDER BY nome")->fetchAll();
 $erro = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = $_POST['data_consulta'] ?? '';
+    
     $dt = str_replace('T', ' ', $data) . (strlen($data) === 16 ? ':00' : '');
-    if (trim($_POST['veterinario'] ?? '') === '')
-        $erro = 'Informe o veterinário.';
-    else {
+    $dataAtual = date('Y-m-d H:i:s');
+
+if ($dt < $dataAtual) {
+    $erro = 'Não é permitido cadastrar consultas em datas passadas.';
+} elseif (trim($_POST['veterinario'] ?? '') === '') {
+    $erro = 'Informe o veterinário.';
+
+
+    }else {
         $dados = [(int) $_POST['animal_id'], $dt, $_POST['veterinario'], $_POST['motivo'], $_POST['status'], $_POST['observacoes']];
         if ($id) {
             $s = $pdo->prepare("UPDATE consultas SET animal_id=?,data_consulta=?,veterinario=?,motivo=?,status=?,observacoes=? WHERE id=?");
@@ -31,6 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 $titulo = $id ? 'Editar consulta' : 'Nova consulta';
 include __DIR__ . '/../includes/header.php'; ?>
+
+
 <h1><?= $titulo ?></h1>
 <section class="panel"><?php if ($erro): ?>
         <div class="alert"><?= $erro ?></div><?php endif; ?>
@@ -42,6 +51,7 @@ include __DIR__ . '/../includes/header.php'; ?>
             </select></div>
         <div class="field"><label>Data e horário</label><input type="datetime-local" name="data_consulta"
                 value="<?= $r['data_consulta'] ? date('Y-m-d\TH:i', strtotime($r['data_consulta'])) : '' ?>" required></div>
+
         <div class="field"><label>Veterinário *</label><input name="veterinario"
                 value="<?= htmlspecialchars($r['veterinario']) ?>" required></div>
         <div class="field"><label>Motivo</label><input name="motivo" value="<?= htmlspecialchars($r['motivo']) ?>"></div>
